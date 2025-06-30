@@ -5,25 +5,25 @@
 ## Stack
 
 - Next.js (React, TypeScript)
-- ShadCN
 - TailwindCSS
+- ShadCN
 
 ## Procesos
 
-1. Criar um template de landing page visualmente atraente e responsivo para imóveis de alto padrão.
+1. Criar um template de landing page visualmente atraente e responsivo para um imovel de alto padrão. ( ex: [https://www.mbras.com.br/especial/itacema-itaim-bibi](https://www.mbras.com.br/especial/itacema-itaim-bibi) )
 2. Ler os dados na pasta:  ```data/imovel.ts```
 3. Com os dados obtidos, preencha o template criado
 
 ## Desafios Bonus
 
 1. **Rota dinâmica:** gerar a rota da página com base no `slug` presente nos dados do imóvel.
-2. **Simulação de formulário:** simular o envio de um formulário de contato (pode ser apenas uma simulação de envio ou um mock).
+2. **Simulação de formulário:** simular o envio de um formulário de contato, tanto simulando de maneira visual quanto salvando os dados preenchidos da forma que preferir.
 
 ## Desafio extra (apenas se os outros dois forem feitos)
 
 Integrar a aplicacao com um banco de dados, onde os dados dos imoveis seram buscados do banco de dados em vez da pasta local `data`. Pode-se utilizar o banco de sua preferencia.
 
-Se decidir usar um banco local, o desafio será maior, pois você precisará configurar o banco de dados localmente dentro do Docker.
+Se decidir usar um banco local, o desafio será maior, pois você precisará configurar o banco de dados localmente dentro do Docker. Caso utilize um banco remoto, nos passe as informações de acesso.
 
 ## Fluxo para entrega
 

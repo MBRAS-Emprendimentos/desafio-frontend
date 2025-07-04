@@ -50,7 +50,7 @@ export default function ImoveisPage() {
   }
 
   return (
-    <main className="p-6">
+    <main className="mt-8 p-6">
 
         <div className="absolute top-6 left-6">
             <Link href="/admin">
@@ -85,9 +85,9 @@ export default function ImoveisPage() {
           <li key={imovel.id} className="border rounded-lg p-4 shadow bg-white">
             <h2 className="text-lg font-semibold text-[#081c34]">{imovel.name}</h2>
             <p className="text-sm text-gray-500 mb-2">{imovel.location}</p>
-            {imovel.images[17] && (
+            {imovel.images[1] && (
               <img
-                src={imovel.images[17].url}
+                src={imovel.images[1].url}
                 alt={imovel.name}
                 className="w-full h-48 object-cover rounded"
               />

@@ -1,5 +1,5 @@
 import { properties } from "@/data/imovel";
-import { CarouselImages } from "@/app/components/carousel/page";
+import { CarouselImages } from "@/app/components/carousel/CarouselImages";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { PropertyData } from "@/types/special";

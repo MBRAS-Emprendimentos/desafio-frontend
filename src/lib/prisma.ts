@@ -1,14 +1,26 @@
-
 import { PrismaClient } from '@prisma/client'
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+
+type GlobalThisWithPrisma = typeof globalThis & {
+  __prisma?: PrismaClient
 }
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: ['query'],
+const prismaInstance = () => {
+  const instance = new PrismaClient({
+    log: process.env.NODE_ENV === 'development' ? ['query'] : ['error']
   })
+  
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+  instance.$connect()
+  return instance
+}
+
+const globalPrisma = (globalThis as GlobalThisWithPrisma)
+
+
+export const prisma = globalPrisma.__prisma ?? prismaInstance()
+
+
+if (process.env.NODE_ENV !== 'production') {
+  globalPrisma.__prisma = prisma
+}

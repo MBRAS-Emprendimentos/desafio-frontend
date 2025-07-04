@@ -1,0 +1,115 @@
+.neighborhoodDifferentials {
+    animation: fadeInScroll linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 40%;
+}
+
+.bemVindo {
+    animation: fadeIn 2s;
+    animation-delay: 0;
+    animation-fill-mode: forwards;
+    color: #081c34;
+    font-size: x-large;
+    font-weight: 200;
+    font-style: italic;
+    opacity: 0;
+
+}
+
+.imovelName {
+    animation: fadeIn 2s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    color: #081c34;
+    font-size: xx-large;
+    opacity: 0;
+}
+
+.imoveltagline {
+    animation: fadeIn linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 60%;
+    background-color: transparent;
+
+    color: white;
+    font-size: xx-large;
+    font-weight: 300;
+    opacity: 0;
+    text-shadow: -3px 4px 2px rgba(0, 0, 0, 0.473);
+
+
+
+
+}
+
+
+
+
+.carrouselContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 2s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  opacity: 0.1;
+}
+
+
+.highlights {
+    animation: fadeInRight linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 40%;
+    color: white;
+}
+
+.characteristics {
+    animation: fadeIn linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 50%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+
+    }
+    to {
+        opacity: 1;
+
+    }
+}
+
+
+
+@keyframes fadeInScroll {
+    from {
+        opacity: 0;
+        transform: translateX(-500px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 1;
+        transform: translateX(800px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+@media (max-width: 760px) {
+    .imoveltagline {
+        font-size: x-large;
+    }
+    
+}

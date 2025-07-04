@@ -1,0 +1,17 @@
+.images {
+    animation: fadeIn linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 50%;
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+
+    }
+    to {
+        opacity: 1;
+
+    }
+}

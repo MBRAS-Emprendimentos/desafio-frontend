@@ -9,8 +9,8 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import styles from "./page.module.css"
-import { GaleriaFotos } from "@/app/components/galery/page";
-import { ContatoForm } from "@/app/components/form/page";
+import { GaleriaFotos } from "@/app/components/galery/Galery";
+import { ContatoForm } from "@/app/components/form/Form";
 import { FaWhatsapp } from "react-icons/fa";
 
 

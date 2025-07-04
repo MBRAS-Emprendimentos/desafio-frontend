@@ -3,8 +3,15 @@ import type { NextConfig } from "next";
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   images: {
-    domains: ['img.mbras.com.br'],
-  },
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'img.mbras.com.br',
+      port: '',
+      pathname: '/**',
+    },
+  ],
+}
 }
 
 

@@ -1,0 +1,24 @@
+=== ARQUIVO DE CONTATOS MBRAS ===
+Este arquivo armazena todos os contatos recebidos através do site.
+
+
+=== NOVO CONTATO MBRAS ===
+  Data/Hora: 07/07/2025, 03:15:07
+  Protocolo: mcspika63876llb2x3k
+  
+  DADOS DO CLIENTE:
+  Nome: ewefef
+  Email: wefe@ofkawo.com
+  Telefone: 123123
+  Assunto: 123123
+  
+  IMÓVEL DE INTERESSE:
+  Nome: RESIDENCIAL JARDIM PAULISTA
+  Código: MB18001
+  
+  MENSAGEM:
+  ocaefo
+  
+  STATUS: PENDING
+  
+  === FIM DO REGISTRO ===

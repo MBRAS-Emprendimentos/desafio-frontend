@@ -1,19 +1,47 @@
 import { Card, CardContent } from "../../../components/ui/card"
-import { Button } from "../../../components/ui/button"
 import { Badge } from "../../../components/ui/badge"
-import { getPropertyById } from "../../../data/imoveis"
-import { MapPin, Phone, MessageCircle } from "lucide-react"
+import { getPropertyBySlug, getAllPropertySlugs } from "../../../data/imoveis"
+import { MapPin } from "lucide-react"
 import PropertyGallery from "../../../components/property/PropertyGallery"
+import ContactForm from "../../../components/property/ContactForm"
 import { notFound } from "next/navigation"
+import type { Metadata } from "next"
 
 interface PropertyDetailPageProps {
   params: {
-    id: string
+    slug: string
+  }
+}
+
+export async function generateStaticParams() {
+  const slugs = getAllPropertySlugs()
+  return slugs.map((slug) => ({
+    slug: slug,
+  }))
+}
+
+export async function generateMetadata({ params }: PropertyDetailPageProps): Promise<Metadata> {
+  const property = getPropertyBySlug(params.slug)
+
+  if (!property) {
+    return {
+      title: "Imóvel não encontrado - MBRAS",
+    }
+  }
+
+  return {
+    title: `${property.name} - MBRAS`,
+    description: property.about.description,
+    openGraph: {
+      title: property.name,
+      description: property.tagline,
+      images: [property.images[0]],
+    },
   }
 }
 
 export default function PropertyDetailPage({ params }: PropertyDetailPageProps) {
-  const property = getPropertyById(params.id)
+  const property = getPropertyBySlug(params.slug)
 
   if (!property) {
     notFound()
@@ -90,38 +118,33 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-8">
-              <CardContent className="p-6">
-                <div className="mb-6">
-                  <div className="text-sm text-muted-foreground mb-1">Detalhes</div>
-                  <div className="font-semibold">{property.summary.details}</div>
-                  <div className="text-sm text-muted-foreground">{property.summary.parking}</div>
-                </div>
-
-                <div className="space-y-3 mb-6">
-                  <Button className="w-full" size="lg">
-                    <Phone className="h-4 w-4 mr-2" />
-                    Ligar Agora
-                  </Button>
-                  <Button variant="outline" className="w-full bg-transparent" size="lg">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    WhatsApp
-                  </Button>
-                </div>
-
-                <div className="border-t pt-6">
-                  <h3 className="font-semibold mb-4">Proximidades</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {property.walkDistanceStats.map((stat, index) => (
-                      <div key={index} className="text-center">
-                        <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                        <div className="text-xs text-muted-foreground">{stat.label}</div>
-                      </div>
-                    ))}
+            <div className="sticky top-8 space-y-6">
+              {/* Property Summary */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="mb-6">
+                    <div className="text-sm text-muted-foreground mb-1">Detalhes</div>
+                    <div className="font-semibold">{property.summary.details}</div>
+                    <div className="text-sm text-muted-foreground">{property.summary.parking}</div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+
+                  <div className="border-t pt-6">
+                    <h3 className="font-semibold mb-4">Proximidades</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {property.walkDistanceStats.map((stat, index) => (
+                        <div key={index} className="text-center">
+                          <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                          <div className="text-xs text-muted-foreground">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Contact Form */}
+              <ContactForm propertyCode={property.code} propertyName={property.name} />
+            </div>
           </div>
         </div>
       </div>

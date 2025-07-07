@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Input } from "../ui/input"
 import { useState } from "react"
 import { Search } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const propertyTypes = [
   { value: "casa", label: "Casa Residencial" },
@@ -16,8 +17,7 @@ const propertyTypes = [
 
 const transactionTypes = [
   { value: "venda", label: "Venda" },
-  { value: "aluguel", label: "Aluguel" },
-  { value: "temporada", label: "Temporada" },
+  { value: "aluguel", label: "Aluguel" }
 ]
 
 const neighborhoods = [
@@ -37,10 +37,18 @@ export default function SearchSection() {
     maxPrice: "",
     bedrooms: "",
   })
+  const router = useRouter()
 
   const handleSearch = () => {
-    console.log("Filtros de busca:", searchFilters)
-    // Implementar lógica de busca
+    const params = new URLSearchParams()
+
+    Object.entries(searchFilters).forEach(([key, value]) => {
+      if (value) {
+        params.append(key, value)
+      }
+    })
+
+    router.push(`/imoveis?${params.toString()}`)
   }
 
   return (

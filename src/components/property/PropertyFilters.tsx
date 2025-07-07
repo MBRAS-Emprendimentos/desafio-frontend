@@ -14,12 +14,12 @@ interface PropertyFiltersProps {
 
 export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProps) {
   const [filters, setFilters] = useState({
-    propertyType: "",
-    transactionType: "",
-    neighborhood: "",
+    propertyType: "Todos os tipos",
+    transactionType: "Todos",
+    neighborhood: "Todos os bairros",
     priceRange: [0, 2000000],
-    bedrooms: "",
-    bathrooms: "",
+    bedrooms: "Qualquer quantidade",
+    bathrooms: "Qualquer quantidade",
     area: [0, 500],
     parking: "",
   })
@@ -34,12 +34,12 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
 
   const clearFilters = () => {
     const clearedFilters = {
-      propertyType: "",
-      transactionType: "",
-      neighborhood: "",
+      propertyType: "Todos os tipos",
+      transactionType: "Todos",
+      neighborhood: "Todos os bairros",
       priceRange: [0, 2000000],
-      bedrooms: "",
-      bathrooms: "",
+      bedrooms: "Qualquer quantidade",
+      bathrooms: "Qualquer quantidade",
       area: [0, 500],
       parking: "",
     }
@@ -81,10 +81,11 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
                 <SelectValue placeholder="Selecione o tipo" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="casa">Casa</SelectItem>
+                <SelectItem value="Todos os tipos">Todos os tipos</SelectItem>
                 <SelectItem value="apartamento">Apartamento</SelectItem>
-                <SelectItem value="terreno">Terreno</SelectItem>
-                <SelectItem value="comercial">Comercial</SelectItem>
+                <SelectItem value="cobertura">Cobertura</SelectItem>
+                <SelectItem value="loft">Loft</SelectItem>
+                <SelectItem value="residencial">Residencial</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -100,6 +101,7 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
                 <SelectValue placeholder="Venda ou Aluguel" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="Todos">Todos</SelectItem>
                 <SelectItem value="venda">Venda</SelectItem>
                 <SelectItem value="aluguel">Aluguel</SelectItem>
                 <SelectItem value="temporada">Temporada</SelectItem>
@@ -115,11 +117,14 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
                 <SelectValue placeholder="Selecione o bairro" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="Todos os bairros">Todos os bairros</SelectItem>
                 <SelectItem value="itaim-bibi">Itaim Bibi</SelectItem>
                 <SelectItem value="jardim-paulista">Jardim Paulista</SelectItem>
+                <SelectItem value="jardins">Jardins</SelectItem>
                 <SelectItem value="vila-madalena">Vila Madalena</SelectItem>
                 <SelectItem value="moema">Moema</SelectItem>
                 <SelectItem value="pinheiros">Pinheiros</SelectItem>
+                <SelectItem value="higienopolis">Higienópolis</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -127,14 +132,15 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
           {/* Faixa de Preço */}
           <div>
             <label className="text-sm font-medium mb-2 block">
-              Faixa de Preço: R$ {filters.priceRange[0].toLocaleString()} - R$ {filters.priceRange[1].toLocaleString()}
+              Faixa de Preço: R$ {filters.priceRange?.[0]?.toLocaleString() || 0} - R${" "}
+              {filters.priceRange?.[1]?.toLocaleString() || 30000000}
             </label>
             <Slider
-              value={filters.priceRange}
+              value={filters.priceRange || [0, 30000000]}
               onValueChange={(value) => handleFilterChange("priceRange", value)}
-              max={2000000}
+              max={30000000}
               min={0}
-              step={50000}
+              step={100000}
               className="mt-2"
             />
           </div>
@@ -147,6 +153,7 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
                 <SelectValue placeholder="Número de quartos" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="Qualquer quantidade">Qualquer quantidade</SelectItem>
                 <SelectItem value="1">1 quarto</SelectItem>
                 <SelectItem value="2">2 quartos</SelectItem>
                 <SelectItem value="3">3 quartos</SelectItem>
@@ -163,6 +170,7 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
                 <SelectValue placeholder="Número de banheiros" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="Qualquer quantidade">Qualquer quantidade</SelectItem>
                 <SelectItem value="1">1 banheiro</SelectItem>
                 <SelectItem value="2">2 banheiros</SelectItem>
                 <SelectItem value="3">3 banheiros</SelectItem>
@@ -174,10 +182,10 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
           {/* Área */}
           <div>
             <label className="text-sm font-medium mb-2 block">
-              Área: {filters.area[0]}m² - {filters.area[1]}m²
+              Área: {filters.area?.[0] || 0}m² - {filters.area?.[1] || 500}m²
             </label>
             <Slider
-              value={filters.area}
+              value={filters.area || [0, 500]}
               onValueChange={(value) => handleFilterChange("area", value)}
               max={500}
               min={0}
@@ -185,44 +193,34 @@ export default function PropertyFilters({ onFiltersChange }: PropertyFiltersProp
               className="mt-2"
             />
           </div>
-
-          {/* Vagas de Garagem */}
-          <div>
-            <label className="text-sm font-medium mb-2 block">Vagas de Garagem</label>
-            <Select value={filters.parking} onValueChange={(value) => handleFilterChange("parking", value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Número de vagas" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">Sem vaga</SelectItem>
-                <SelectItem value="1">1 vaga</SelectItem>
-                <SelectItem value="2">2 vagas</SelectItem>
-                <SelectItem value="3">3+ vagas</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </CardContent>
       </Card>
 
       {/* Active Filters */}
       {activeFiltersCount > 0 && (
         <div className="flex flex-wrap gap-2">
-          {filters.propertyType && (
+          {filters.propertyType !== "Todos os tipos" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               {filters.propertyType}
-              <X className="h-3 w-3 cursor-pointer" onClick={() => handleFilterChange("propertyType", "")} />
+              <X
+                className="h-3 w-3 cursor-pointer"
+                onClick={() => handleFilterChange("propertyType", "Todos os tipos")}
+              />
             </Badge>
           )}
-          {filters.transactionType && (
+          {filters.transactionType !== "Todos" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               {filters.transactionType}
-              <X className="h-3 w-3 cursor-pointer" onClick={() => handleFilterChange("transactionType", "")} />
+              <X className="h-3 w-3 cursor-pointer" onClick={() => handleFilterChange("transactionType", "Todos")} />
             </Badge>
           )}
-          {filters.neighborhood && (
+          {filters.neighborhood !== "Todos os bairros" && (
             <Badge variant="secondary" className="flex items-center gap-1">
               {filters.neighborhood}
-              <X className="h-3 w-3 cursor-pointer" onClick={() => handleFilterChange("neighborhood", "")} />
+              <X
+                className="h-3 w-3 cursor-pointer"
+                onClick={() => handleFilterChange("neighborhood", "Todos os bairros")}
+              />
             </Badge>
           )}
         </div>

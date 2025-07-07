@@ -6,6 +6,7 @@ import { Bed, Bath, Square, ChevronLeft, ChevronRight } from "lucide-react"
 import { mockProperties } from "../../data/imoveis"
 import { useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function PropertyCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -19,10 +20,10 @@ export default function PropertyCarousel() {
   }
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-muted/30 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Confira nossa seleção personalizada</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">Confira nossa seleção personalizada</h2>
         </div>
 
         <div className="relative">
@@ -44,9 +45,9 @@ export default function PropertyCarousel() {
                     </div>
                     <CardContent className="p-6">
                       <h3 className="text-xl font-semibold mb-2">{property.name}</h3>
-                      <p className="text-gray-600 mb-4">{property.location}</p>
+                      <p className="text-muted-foreground mb-4">{property.location}</p>
 
-                      <div className="flex items-center space-x-4 mb-4 text-sm text-gray-500">
+                      <div className="flex items-center space-x-4 mb-4 text-sm text-muted-foreground">
                         <div className="flex items-center">
                           <Bed className="h-4 w-4 mr-1" />
                           {property.bedrooms}
@@ -62,10 +63,12 @@ export default function PropertyCarousel() {
                       </div>
 
                       <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold text-blue-600">
+                        <span className="text-2xl font-bold text-primary">
                           R$ {property.price.toLocaleString("pt-BR")}
                         </span>
-                        <Button variant="outline">Ver Detalhes</Button>
+                        <Link href={`/imovel/${property.slug}`}>
+                          <Button variant="outline">Ver Detalhes</Button>
+                        </Link>
                       </div>
                     </CardContent>
                   </Card>
@@ -78,7 +81,7 @@ export default function PropertyCarousel() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white shadow-lg"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-background shadow-lg"
             onClick={prevSlide}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -87,7 +90,7 @@ export default function PropertyCarousel() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white shadow-lg"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-background shadow-lg"
             onClick={nextSlide}
           >
             <ChevronRight className="h-4 w-4" />
@@ -98,7 +101,7 @@ export default function PropertyCarousel() {
             {mockProperties.map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full ${index === currentIndex ? "bg-blue-600" : "bg-gray-300"}`}
+                className={`w-3 h-3 rounded-full ${index === currentIndex ? "bg-primary" : "bg-muted-foreground/30"}`}
                 onClick={() => setCurrentIndex(index)}
               />
             ))}

@@ -1,6 +1,6 @@
 import { Card, CardContent } from "../../../components/ui/card"
 import { Badge } from "../../../components/ui/badge"
-import { getPropertyBySlug, getAllPropertySlugs } from "../../../data/imoveis"
+import { getPropertyBySlug, getAllPropertySlugs, mockProperties } from "../../../data/imoveis"
 import { MapPin } from "lucide-react"
 import PropertyGallery from "../../../components/property/PropertyGallery"
 import ContactForm from "../../../components/property/ContactForm"
@@ -8,9 +8,9 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 
 interface PropertyDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
@@ -21,7 +21,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PropertyDetailPageProps): Promise<Metadata> {
-  const property = getPropertyBySlug(params.slug)
+  const { slug } = await params
+  const property = getPropertyBySlug(slug)
 
   if (!property) {
     return {
@@ -40,8 +41,12 @@ export async function generateMetadata({ params }: PropertyDetailPageProps): Pro
   }
 }
 
-export default function PropertyDetailPage({ params }: PropertyDetailPageProps) {
-  const property = getPropertyBySlug(params.slug)
+export default async function PropertyDetailPage({ params }: PropertyDetailPageProps) {
+  const { slug } = await params
+  const property = getPropertyBySlug(slug)
+
+  // Buscar dados do preço no mockProperties
+  const propertyWithPrice = mockProperties.find((p) => p.slug === slug)
 
   if (!property) {
     notFound()
@@ -57,9 +62,11 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
           </Badge>
           <h1 className="text-4xl font-bold text-foreground mb-2">{property.name}</h1>
           <p className="text-xl text-muted-foreground mb-4">{property.tagline}</p>
-          <div className="flex items-center text-muted-foreground">
-            <MapPin className="h-5 w-5 mr-2" />
-            <span>{property.location}</span>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center text-muted-foreground">
+              <MapPin className="h-5 w-5 mr-2" />
+              <span>{property.location}</span>
+            </div>
           </div>
         </div>
 
@@ -122,6 +129,21 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               {/* Property Summary */}
               <Card>
                 <CardContent className="p-6">
+                  {/* Preço em destaque */}
+                  {propertyWithPrice && (
+                    <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                      <div className="text-sm text-muted-foreground mb-1">Valor do imóvel</div>
+                      <div className="text-3xl font-bold text-primary">
+                        R$ {propertyWithPrice.price.toLocaleString("pt-BR")}
+                      </div>
+                      {propertyWithPrice.area && (
+                        <div className="text-sm text-muted-foreground mt-1">
+                          R$ {Math.round(propertyWithPrice.price / propertyWithPrice.area).toLocaleString("pt-BR")}/m²
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <div className="mb-6">
                     <div className="text-sm text-muted-foreground mb-1">Detalhes</div>
                     <div className="font-semibold">{property.summary.details}</div>

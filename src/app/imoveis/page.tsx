@@ -46,7 +46,7 @@ export default function ImoveisPage() {
 
   const filteredProperties = useMemo(() => {
     return mockProperties.filter((property) => {
-      // Busca por texto
+      // Busca por texto (mantém a funcionalidade existente)
       if (filters.query) {
         const query = filters.query.toLowerCase()
         const matchesQuery =
@@ -56,62 +56,23 @@ export default function ImoveisPage() {
         if (!matchesQuery) return false
       }
 
-      // Filtro por tipo de propriedade
-      if (filters.propertyType) {
-        const propertyType = property.name.toLowerCase()
-        const filterType = filters.propertyType.toLowerCase()
-
-        if (
-          filterType === "apartamento" &&
-          !propertyType.includes("apartamento") &&
-          !propertyType.includes("residencial")
-        )
-          return false
-        if (filterType === "cobertura" && !propertyType.includes("cobertura")) return false
-        if (filterType === "loft" && !propertyType.includes("loft")) return false
-        if (filterType === "residencial" && !propertyType.includes("residencial")) return false
-      }
-
-      // Filtro por bairro
-      if (filters.neighborhood) {
-        const location = property.location.toLowerCase()
-        const neighborhood = filters.neighborhood.toLowerCase()
-
-        if (neighborhood === "itaim-bibi" && !location.includes("itaim")) return false
-        if (neighborhood === "jardim-paulista" && !location.includes("jardim paulista")) return false
-        if (neighborhood === "jardins" && !location.includes("jardins")) return false
-        if (neighborhood === "vila-madalena" && !location.includes("vila madalena")) return false
-        if (neighborhood === "moema" && !location.includes("moema")) return false
-        if (neighborhood === "pinheiros" && !location.includes("pinheiros")) return false
-        if (neighborhood === "higienopolis" && !location.includes("higienópolis")) return false
-      }
-
-      // Aplicar filtros de preço
+      // Filtro por preço
       if (filters.priceRange && filters.priceRange.length === 2) {
         if (property.price < filters.priceRange[0] || property.price > filters.priceRange[1]) {
           return false
         }
       }
-      if (filters.minPrice && property.price < filters.minPrice) return false
-      if (filters.maxPrice && property.price > filters.maxPrice) return false
 
       // Filtro por quartos
-      if (filters.bedrooms) {
+      if (filters.bedrooms && filters.bedrooms !== "any") {
         const bedroomFilter = filters.bedrooms
-        if (bedroomFilter === "4" && property.bedrooms < 4) return false
-        if (bedroomFilter !== "4" && property.bedrooms.toString() !== bedroomFilter) return false
-      }
-
-      // Filtro por banheiros
-      if (filters.bathrooms) {
-        const bathroomFilter = filters.bathrooms
-        if (bathroomFilter === "4" && property.bathrooms < 4) return false
-        if (bathroomFilter !== "4" && property.bathrooms.toString() !== bathroomFilter) return false
+        if (bedroomFilter === "5" && property.bedrooms < 5) return false
+        if (bedroomFilter !== "5" && property.bedrooms.toString() !== bedroomFilter) return false
       }
 
       // Filtro por área
-      if (filters.area && filters.area.length === 2) {
-        if (property.area < filters.area[0] || property.area > filters.area[1]) {
+      if (filters.areaRange && filters.areaRange.length === 2) {
+        if (property.area < filters.areaRange[0] || property.area > filters.areaRange[1]) {
           return false
         }
       }
@@ -204,7 +165,12 @@ export default function ImoveisPage() {
                     <Button
                       variant="outline"
                       onClick={() => {
-                        setFilters({})
+                        const clearedFilters = {
+                          priceRange: [0, 50000000],
+                          bedrooms: "any",
+                          areaRange: [0, 1000],
+                        }
+                        setFilters(clearedFilters)
                         window.scrollTo({ top: 0, behavior: "smooth" })
                       }}
                       className="w-full"

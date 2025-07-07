@@ -1,19 +1,23 @@
 import { Card, CardContent } from "../../../components/ui/card"
 import { Button } from "../../../components/ui/button"
 import { Badge } from "../../../components/ui/badge"
-import { getPropertyById } from "../../../data/imoveis"
+import { getPropertyById, mockProperties } from "../../../data/imoveis"
 import { MapPin, Phone, MessageCircle } from "lucide-react"
 import PropertyGallery from "../../../components/property/PropertyGallery"
 import { notFound } from "next/navigation"
 
 interface PropertyDetailPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-export default function PropertyDetailPage({ params }: PropertyDetailPageProps) {
-  const property = getPropertyById(params.id)
+export default async function PropertyDetailPage({ params }: PropertyDetailPageProps) {
+  const { id } = await params
+  const property = getPropertyById(id)
+
+  // Buscar dados do preço no mockProperties
+  const propertyWithPrice = mockProperties.find((p) => p.id === id)
 
   if (!property) {
     notFound()
@@ -29,9 +33,11 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
           </Badge>
           <h1 className="text-4xl font-bold text-foreground mb-2">{property.name}</h1>
           <p className="text-xl text-muted-foreground mb-4">{property.tagline}</p>
-          <div className="flex items-center text-muted-foreground">
-            <MapPin className="h-5 w-5 mr-2" />
-            <span>{property.location}</span>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center text-muted-foreground">
+              <MapPin className="h-5 w-5 mr-2" />
+              <span>{property.location}</span>
+            </div>
           </div>
         </div>
 
@@ -92,6 +98,21 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
           <div className="lg:col-span-1">
             <Card className="sticky top-8">
               <CardContent className="p-6">
+                {/* Preço em destaque */}
+                {propertyWithPrice && (
+                  <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                    <div className="text-sm text-muted-foreground mb-1">Valor do imóvel</div>
+                    <div className="text-3xl font-bold text-primary">
+                      R$ {propertyWithPrice.price.toLocaleString("pt-BR")}
+                    </div>
+                    {propertyWithPrice.area && (
+                      <div className="text-sm text-muted-foreground mt-1">
+                        R$ {Math.round(propertyWithPrice.price / propertyWithPrice.area).toLocaleString("pt-BR")}/m²
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <div className="mb-6">
                   <div className="text-sm text-muted-foreground mb-1">Detalhes</div>
                   <div className="font-semibold">{property.summary.details}</div>

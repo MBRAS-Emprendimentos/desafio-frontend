@@ -2,26 +2,21 @@ import { Car, Home, Shield, School, Hospital, Trees, RulerIcon as RulerDimension
 import type { PropertyData } from "@/types/special"
 import { generateSlug } from "../lib/slugify"
 
-// Arrays de imagens para cada propriedade
 const itacema366Images = [
-  "https://img.mbras.com.br/property_photos/MB18004/42273108-a3b4-45df-ba51-05be9c9fcafd.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/118d84fd-718e-4f7c-aed4-50a952ab79c2.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/f77d2b85-4415-4b5e-9e98-a3ce02526580.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/b5e62dc4-ad44-4bb0-b31a-595a283ae98e.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/8208a191-01a6-4386-8c40-a2d1451e5efc.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/cc3c1fee-9e1a-4bb0-a1f9-709d090f9cb6.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/b1dba50e-4cea-4ddc-aa21-e736b84bf873.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/255ea40a-7701-47c2-beb7-d41985eaf2d9.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/9ca71c73-38df-48a2-b245-4099d9054fed.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/6d654c90-5634-4979-8622-364b2c1bbb89.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/3f61efe9-24a4-4917-b6c8-5eedaca6c78b.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/80e88526-5a03-4f4e-942d-24529d74593b.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/9d728e7a-5acd-415a-a43f-8cf668e7d71c.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/1e7024e8-4483-4a9d-9ca2-9accb1884d8f.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/02b76a72-ca38-4a96-a1c7-e3faa838a25d.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/1507a78d-2073-45b3-9c6e-06ac77fd7d2d.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/69f25d37-4099-49d2-937d-99b4b52f55ab.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
-  "https://img.mbras.com.br/property_photos/MB18004/728b84c8-b622-4f78-a881-65b0f1f454f5.jpeg?tr=f-auto,q-auto,pr=true,w=1200",
+  'https://img.mbras.com.br/property_photos/MB18004/42273108-a3b4-45df-ba51-05be9c9fcafd.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/b5e62dc4-ad44-4bb0-b31a-595a283ae98e.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/cc3c1fee-9e1a-4bb0-a1f9-709d090f9cb6.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/b1dba50e-4cea-4ddc-aa21-e736b84bf873.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/255ea40a-7701-47c2-beb7-d41985eaf2d9.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/9ca71c73-38df-48a2-b245-4099d9054fed.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/6d654c90-5634-4979-8622-364b2c1bbb89.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/3f61efe9-24a4-4917-b6c8-5eedaca6c78b.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/80e88526-5a03-4f4e-942d-24529d74593b.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/9d728e7a-5acd-415a-a43f-8cf668e7d71c.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/1e7024e8-4483-4a9d-9ca2-9accb1884d8f.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/02b76a72-ca38-4a96-a1c7-e3faa838a25d.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/1507a78d-2073-45b3-9c6e-06ac77fd7d2d.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
+  'https://img.mbras.com.br/property_photos/MB18004/69f25d37-4099-49d2-937d-99b4b52f55ab.jpeg?tr=f-auto,q-auto,pr=true,w=1200',
 ]
 
 const jardimPaulistaImages = [
@@ -31,9 +26,6 @@ const jardimPaulistaImages = [
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600563438938-a42d098c3d8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
 ]
 
@@ -46,20 +38,17 @@ const vilaMadalenaImages = [
   "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600121848554-f7c5b6c3e8b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600132806608-231446b2e7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
 ]
 
 const moemaImages = [
-  "https://images.unsplash.com/photo-1600566752229-450a5ba3e4c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600563438938-a42d098c3d8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
 ]
 
@@ -70,8 +59,6 @@ const pinheirosImages = [
   "https://images.unsplash.com/photo-1600132806608-231446b2e7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600047509358-9dc75507daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600121848554-f7c5b6c3e8b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
 ]
@@ -808,4 +795,530 @@ export const getPropertyBySlug = (slug: string): PropertyData | undefined => {
 // Função para gerar todos os slugs (útil para generateStaticParams)
 export const getAllPropertySlugs = (): string[] => {
   return mockProperties.map((property) => property.slug)
+}
+
+// Adicionar novas propriedades ao final do arquivo
+
+const pentehouseItaimImages = [
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600563438938-a42d098c3d8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+]
+
+const casaAltoLuxoImages = [
+  "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600132806608-231446b2e7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600047509358-9dc75507daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600121848554-f7c5b6c3e8b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+]
+
+const studioModernoImages = [
+  "https://images.unsplash.com/photo-1600566752229-450a5ba3e4c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1600563438938-a42d098c3d8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+]
+
+// Adicionar novas propriedades
+
+export const pentehouseItaimData: PropertyData = {
+  name: "PENTHOUSE EXCLUSIVA ITAIM BIBI",
+  code: "MB18009",
+  tagline: "Vista panorâmica da cidade em cobertura de luxo",
+  location: "Itaim Bibi, São Paulo",
+  summary: {
+    details: "350 m² | 4 dorms (4 suítes)",
+    parking: "4 vagas",
+  },
+  images: pentehouseItaimImages,
+  about: {
+    description:
+      "Penthouse exclusiva no coração do Itaim Bibi, oferecendo vista panorâmica de 360° da cidade de São Paulo. Com 350m² de área privativa mais 200m² de terraço, esta propriedade única combina luxo, sofisticação e localização privilegiada. Acabamentos importados, automação completa e piscina privativa no terraço.",
+    highlights: [
+      "350 m² + 200 m² de terraço",
+      "4 suítes com closets e banheiras de hidromassagem",
+      "Piscina privativa no terraço",
+      "Vista panorâmica 360° da cidade",
+      "Automação residencial completa",
+      "4 vagas de garagem cobertas",
+    ],
+  },
+  characteristics: [
+    { icon: RulerDimensionLine, label: "Área Total", value: "550 m² (350m² + 200m² terraço)" },
+    { icon: Home, label: "Dormitórios", value: "4 suítes master" },
+    { icon: Car, label: "Vagas", value: "4 vagas cobertas" },
+  ],
+  neighborhoodDifferentials: [
+    {
+      icon: Shield,
+      iconColor: "text-blue-600",
+      iconBackground: "bg-blue-100",
+      title: "Segurança VIP",
+      description: "Portaria 24h, elevador privativo e sistema de segurança avançado",
+    },
+    {
+      icon: School,
+      iconColor: "text-purple-600",
+      iconBackground: "bg-purple-100",
+      title: "Educação Internacional",
+      description: "Escolas internacionais e bilíngues de renome",
+    },
+    {
+      icon: Hospital,
+      iconColor: "text-red-600",
+      iconBackground: "bg-red-100",
+      title: "Medicina de Excelência",
+      description: "Hospital Albert Einstein e clínicas especializadas",
+    },
+    {
+      icon: Trees,
+      iconColor: "text-green-600",
+      iconBackground: "bg-green-100",
+      title: "Lifestyle Premium",
+      description: "Restaurantes estrelados, spas e centros de bem-estar",
+    },
+  ],
+  walkDistanceStats: [
+    { value: "60+", label: "Restaurantes Gourmet" },
+    { value: "10", label: "Shopping Centers" },
+    { value: "5", label: "Centros Empresariais" },
+    { value: "2", label: "Parques Urbanos" },
+  ],
+  contact: {
+    whatsappNumber: "5511977998888",
+    formId: "mbljlonp",
+  },
+}
+
+export const casaAltoLuxoData: PropertyData = {
+  name: "CASA DE ALTO LUXO JARDIM EUROPA",
+  code: "MB18010",
+  tagline: "Residência exclusiva em condomínio fechado",
+  location: "Jardim Europa, São Paulo",
+  summary: {
+    details: "800 m² | 5 dorms (5 suítes)",
+    parking: "6 vagas",
+  },
+  images: casaAltoLuxoImages,
+  about: {
+    description:
+      "Casa de arquitetura contemporânea em condomínio fechado no Jardim Europa. Com 800m² de área construída em terreno de 1.200m², esta residência oferece o máximo em privacidade, segurança e sofisticação. Piscina aquecida, quadra de tênis, adega climatizada e jardim paisagístico assinado.",
+    highlights: [
+      "800 m² construídos em terreno de 1.200 m²",
+      "5 suítes master com closets individuais",
+      "Piscina aquecida com deck em madeira",
+      "Quadra de tênis oficial",
+      "Adega climatizada para 500 garrafas",
+      "6 vagas de garagem cobertas",
+    ],
+  },
+  characteristics: [
+    { icon: RulerDimensionLine, label: "Área Total", value: "800 m² construídos" },
+    { icon: Home, label: "Dormitórios", value: "5 suítes master" },
+    { icon: Car, label: "Vagas", value: "6 vagas cobertas" },
+  ],
+  neighborhoodDifferentials: [
+    {
+      icon: Shield,
+      iconColor: "text-blue-600",
+      iconBackground: "bg-blue-100",
+      title: "Condomínio Fechado",
+      description: "Segurança 24h, portaria dupla e rondas constantes",
+    },
+    {
+      icon: School,
+      iconColor: "text-purple-600",
+      iconBackground: "bg-purple-100",
+      title: "Educação de Elite",
+      description: "Colégio Porto Seguro e escolas internacionais",
+    },
+    {
+      icon: Hospital,
+      iconColor: "text-red-600",
+      iconBackground: "bg-red-100",
+      title: "Saúde Premium",
+      description: "Hospital Sírio-Libanês e clínicas especializadas",
+    },
+    {
+      icon: Trees,
+      iconColor: "text-green-600",
+      iconBackground: "bg-green-100",
+      title: "Área Nobre",
+      description: "Jardim Europa, uma das regiões mais valorizadas de SP",
+    },
+  ],
+  walkDistanceStats: [
+    { value: "30+", label: "Restaurantes Exclusivos" },
+    { value: "6", label: "Shopping Centers" },
+    { value: "15", label: "Academias Premium" },
+    { value: "4", label: "Clubes Sociais" },
+  ],
+  contact: {
+    whatsappNumber: "5511977998888",
+    formId: "mbljlonp",
+  },
+}
+
+export const studioModernoData: PropertyData = {
+  name: "STUDIO MODERNO VILA OLÍMPIA",
+  code: "MB18011",
+  tagline: "Investimento inteligente para jovens profissionais",
+  location: "Vila Olímpia, São Paulo",
+  summary: {
+    details: "45 m² | 1 dorm integrado",
+    parking: "1 vaga",
+  },
+  images: studioModernoImages,
+  about: {
+    description:
+      "Studio moderno na Vila Olímpia, ideal para jovens profissionais e investidores. Localizado em edifício novo com infraestrutura completa, próximo ao centro empresarial da Berrini e Marginal Pinheiros. Excelente potencial de valorização e alta demanda para locação.",
+    highlights: [
+      "45 m² otimizados com layout inteligente",
+      "Ambiente integrado com cozinha americana",
+      "Varanda com vista para a cidade",
+      "Mobiliado e decorado",
+      "Prédio novo com academia e piscina",
+      "1 vaga de garagem",
+    ],
+  },
+  characteristics: [
+    { icon: RulerDimensionLine, label: "Área Total", value: "45 m²" },
+    { icon: Home, label: "Dormitórios", value: "1 ambiente integrado" },
+    { icon: Car, label: "Vagas", value: "1 vaga de garagem" },
+  ],
+  neighborhoodDifferentials: [
+    {
+      icon: Shield,
+      iconColor: "text-blue-600",
+      iconBackground: "bg-blue-100",
+      title: "Segurança Corporativa",
+      description: "Região empresarial com segurança reforçada",
+    },
+    {
+      icon: School,
+      iconColor: "text-purple-600",
+      iconBackground: "bg-purple-100",
+      title: "Hub de Negócios",
+      description: "Próximo a grandes empresas e startups",
+    },
+    {
+      icon: Hospital,
+      iconColor: "text-red-600",
+      iconBackground: "bg-red-100",
+      title: "Saúde Corporativa",
+      description: "Clínicas e hospitais especializados próximos",
+    },
+    {
+      icon: Trees,
+      iconColor: "text-green-600",
+      iconBackground: "bg-green-100",
+      title: "Mobilidade Urbana",
+      description: "Estação de trem, metrô e ciclofaixas",
+    },
+  ],
+  walkDistanceStats: [
+    { value: "50+", label: "Restaurantes e Cafés" },
+    { value: "8", label: "Shopping Centers" },
+    { value: "3", label: "Estações de Transporte" },
+    { value: "100+", label: "Empresas Próximas" },
+  ],
+  contact: {
+    whatsappNumber: "5511977998888",
+    formId: "mbljlonp",
+  },
+}
+
+// Atualizar array de todas as propriedades
+export const allPropertiesUpdated: PropertyData[] = [
+  itacema366Data,
+  jardimPaulistaData,
+  vilaMadalenaData,
+  moemaData,
+  pinheirosData,
+  higienopolisData,
+  superLuxuosoItaimData,
+  apartamentoJardinsData,
+  pentehouseItaimData,
+  casaAltoLuxoData,
+  studioModernoData,
+]
+
+// Atualizar mock properties para incluir as novas propriedades
+export const mockPropertiesUpdated = [
+  {
+    id: "1",
+    name: "Residencial Jardim Paulista",
+    location: "Jardim Paulista, São Paulo",
+    image: jardimPaulistaImages[0],
+    images: jardimPaulistaImages,
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 120,
+    price: 850000,
+    propertyData: jardimPaulistaData,
+    slug: generateSlug(jardimPaulistaData.name, jardimPaulistaData.code),
+  },
+  {
+    id: "2",
+    name: "Cobertura Vila Madalena",
+    location: "Vila Madalena, São Paulo",
+    image: vilaMadalenaImages[0],
+    images: vilaMadalenaImages,
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 180,
+    price: 1200000,
+    propertyData: vilaMadalenaData,
+    slug: generateSlug(vilaMadalenaData.name, vilaMadalenaData.code),
+  },
+  {
+    id: "3",
+    name: "Apartamento Moema",
+    location: "Moema, São Paulo",
+    image: moemaImages[0],
+    images: moemaImages,
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 95,
+    price: 650000,
+    propertyData: moemaData,
+    slug: generateSlug(moemaData.name, moemaData.code),
+  },
+  {
+    id: "4",
+    name: "ITACEMA 366",
+    location: "Itaim Bibi, São Paulo",
+    image: itacema366Images[0],
+    images: itacema366Images,
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 145,
+    price: 980000,
+    propertyData: itacema366Data,
+    slug: generateSlug(itacema366Data.name, itacema366Data.code),
+  },
+  {
+    id: "5",
+    name: "Loft Pinheiros",
+    location: "Pinheiros, São Paulo",
+    image: pinheirosImages[0],
+    images: pinheirosImages,
+    bedrooms: 1,
+    bathrooms: 1,
+    area: 85,
+    price: 550000,
+    propertyData: pinheirosData,
+    slug: generateSlug(pinheirosData.name, pinheirosData.code),
+  },
+  {
+    id: "6",
+    name: "Edifício Higienópolis",
+    location: "Higienópolis, São Paulo",
+    image: higienopolisImages[0],
+    images: higienopolisImages,
+    bedrooms: 4,
+    bathrooms: 4,
+    area: 200,
+    price: 1500000,
+    propertyData: higienopolisData,
+    slug: generateSlug(higienopolisData.name, higienopolisData.code),
+  },
+  {
+    id: "7",
+    name: "Super Luxuoso no Melhor do Itaim Bibi",
+    location: "Itaim Bibi, São Paulo",
+    image: superLuxuosoItaimImages[0],
+    images: superLuxuosoItaimImages,
+    bedrooms: 4,
+    bathrooms: 4,
+    area: 460,
+    price: 25000000,
+    propertyData: superLuxuosoItaimData,
+    slug: generateSlug(superLuxuosoItaimData.name, superLuxuosoItaimData.code),
+  },
+  {
+    id: "8",
+    name: "Apartamento Decorado dos Sonhos",
+    location: "Jardins, São Paulo",
+    image: apartamentoJardinsImages[0],
+    images: apartamentoJardinsImages,
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 180,
+    price: 3500000,
+    propertyData: apartamentoJardinsData,
+    slug: generateSlug(apartamentoJardinsData.name, apartamentoJardinsData.code),
+  },
+  {
+    id: "9",
+    name: "Penthouse Exclusiva Itaim Bibi",
+    location: "Itaim Bibi, São Paulo",
+    image: pentehouseItaimImages[0],
+    images: pentehouseItaimImages,
+    bedrooms: 4,
+    bathrooms: 4,
+    area: 550,
+    price: 35000000,
+    propertyData: pentehouseItaimData,
+    slug: generateSlug(pentehouseItaimData.name, pentehouseItaimData.code),
+  },
+  {
+    id: "10",
+    name: "Casa de Alto Luxo Jardim Europa",
+    location: "Jardim Europa, São Paulo",
+    image: casaAltoLuxoImages[0],
+    images: casaAltoLuxoImages,
+    bedrooms: 5,
+    bathrooms: 5,
+    area: 800,
+    price: 45000000,
+    propertyData: casaAltoLuxoData,
+    slug: generateSlug(casaAltoLuxoData.name, casaAltoLuxoData.code),
+  },
+  {
+    id: "11",
+    name: "Studio Moderno Vila Olímpia",
+    location: "Vila Olímpia, São Paulo",
+    image: studioModernoImages[0],
+    images: studioModernoImages,
+    bedrooms: 1,
+    bathrooms: 1,
+    area: 45,
+    price: 420000,
+    propertyData: studioModernoData,
+    slug: generateSlug(studioModernoData.name, studioModernoData.code),
+  },
+]
+
+// Atualizar função para buscar propriedade por ID
+export const getPropertyByIdUpdated = (id: string): PropertyData | undefined => {
+  const propertyMap: { [key: string]: PropertyData } = {
+    "1": jardimPaulistaData,
+    "2": vilaMadalenaData,
+    "3": moemaData,
+    "4": itacema366Data,
+    "5": pinheirosData,
+    "6": higienopolisData,
+    "7": superLuxuosoItaimData,
+    "8": apartamentoJardinsData,
+    "9": pentehouseItaimData,
+    "10": casaAltoLuxoData,
+    "11": studioModernoData,
+  }
+
+  return propertyMap[id]
+}
+
+// Funções de utilidade adicionais
+
+// Função para filtrar por faixa de preço
+export const getPropertiesByPriceRange = (minPrice: number, maxPrice: number) => {
+  return mockPropertiesUpdated.filter((property) => property.price >= minPrice && property.price <= maxPrice)
+}
+
+// Função para filtrar por tipo de imóvel
+export const getPropertiesByType = (type: "apartamento" | "cobertura" | "casa" | "loft" | "studio") => {
+  return mockPropertiesUpdated.filter((property) => {
+    const name = property.name.toLowerCase()
+    switch (type) {
+      case "apartamento":
+        return name.includes("apartamento") || name.includes("residencial")
+      case "cobertura":
+        return name.includes("cobertura") || name.includes("penthouse")
+      case "casa":
+        return name.includes("casa")
+      case "loft":
+        return name.includes("loft")
+      case "studio":
+        return name.includes("studio")
+      default:
+        return false
+    }
+  })
+}
+
+// Função para filtrar por bairro
+export const getPropertiesByNeighborhood = (neighborhood: string) => {
+  return mockPropertiesUpdated.filter((property) =>
+    property.location.toLowerCase().includes(neighborhood.toLowerCase()),
+  )
+}
+
+// Função para obter propriedades em destaque (mais caras)
+export const getFeaturedProperties = (limit = 3) => {
+  return mockPropertiesUpdated.sort((a, b) => b.price - a.price).slice(0, limit)
+}
+
+// Função para obter propriedades para investimento (menor preço por m²)
+export const getInvestmentProperties = (limit = 3) => {
+  return mockPropertiesUpdated
+    .map((property) => ({
+      ...property,
+      pricePerSqm: property.price / property.area,
+    }))
+    .sort((a, b) => a.pricePerSqm - b.pricePerSqm)
+    .slice(0, limit)
+}
+
+// Função para busca avançada
+export const advancedSearch = (filters: {
+  minPrice?: number
+  maxPrice?: number
+  minArea?: number
+  maxArea?: number
+  bedrooms?: number
+  bathrooms?: number
+  neighborhood?: string
+  propertyType?: string
+}) => {
+  return mockPropertiesUpdated.filter((property) => {
+    if (filters.minPrice && property.price < filters.minPrice) return false
+    if (filters.maxPrice && property.price > filters.maxPrice) return false
+    if (filters.minArea && property.area < filters.minArea) return false
+    if (filters.maxArea && property.area > filters.maxArea) return false
+    if (filters.bedrooms && property.bedrooms !== filters.bedrooms) return false
+    if (filters.bathrooms && property.bathrooms !== filters.bathrooms) return false
+    if (filters.neighborhood && !property.location.toLowerCase().includes(filters.neighborhood.toLowerCase()))
+      return false
+    if (filters.propertyType) {
+      const name = property.name.toLowerCase()
+      const type = filters.propertyType.toLowerCase()
+      if (!name.includes(type)) return false
+    }
+    return true
+  })
+}
+
+// Estatísticas do mercado
+export const getMarketStats = () => {
+  const prices = mockPropertiesUpdated.map((p) => p.price)
+  const areas = mockPropertiesUpdated.map((p) => p.area)
+
+  return {
+    totalProperties: mockPropertiesUpdated.length,
+    averagePrice: prices.reduce((a, b) => a + b, 0) / prices.length,
+    medianPrice: prices.sort((a, b) => a - b)[Math.floor(prices.length / 2)],
+    minPrice: Math.min(...prices),
+    maxPrice: Math.max(...prices),
+    averageArea: areas.reduce((a, b) => a + b, 0) / areas.length,
+    averagePricePerSqm: prices.reduce((a, b) => a + b, 0) / areas.reduce((a, b) => a + b, 0),
+    neighborhoods: [...new Set(mockPropertiesUpdated.map((p) => p.location))],
+    priceRanges: {
+      under500k: mockPropertiesUpdated.filter((p) => p.price < 500000).length,
+      between500kAnd1M: mockPropertiesUpdated.filter((p) => p.price >= 500000 && p.price < 1000000).length,
+      between1MAnd5M: mockPropertiesUpdated.filter((p) => p.price >= 1000000 && p.price < 5000000).length,
+      above5M: mockPropertiesUpdated.filter((p) => p.price >= 5000000).length,
+    },
+  }
 }

@@ -22,16 +22,16 @@ export interface ContactSubmission {
       status: "pending",
     }
   
-    // Salvar em arquivo TXT
-    saveToTextFile(newSubmission)
-  
-    // Também salvar no localStorage para funcionalidade do frontend
+    // Salvar no localStorage para funcionalidade do frontend
     const existingSubmissions = getContactSubmissions()
     const updatedSubmissions = [...existingSubmissions, newSubmission]
   
     if (typeof window !== "undefined") {
       localStorage.setItem("mbras-contact-submissions", JSON.stringify(updatedSubmissions))
     }
+  
+    // Salvar no arquivo estático do projeto
+    saveToStaticFile(newSubmission)
   
     return newSubmission
   }
@@ -83,26 +83,24 @@ export interface ContactSubmission {
     })
   }
   
-  // Função para salvar em arquivo TXT
-  const saveToTextFile = (submission: ContactSubmission): void => {
-    const textContent = formatSubmissionToText(submission)
-  
-    if (typeof window !== "undefined") {
-      // Criar e baixar arquivo TXT
-      const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" })
-      const url = URL.createObjectURL(blob)
-      const link = document.createElement("a")
-      link.href = url
-      link.download = `contato-${submission.id}-${new Date().toISOString().split("T")[0]}.txt`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
+  // Função para salvar no arquivo estático do projeto
+  const saveToStaticFile = async (submission: ContactSubmission): Promise<void> => {
+    try {
+      // Enviar dados para API route que salvará no arquivo
+      await fetch('/api/save-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submission),
+      })
+    } catch (error) {
+      console.error('Erro ao salvar no arquivo estático:', error)
     }
   }
   
   // Formatar dados para texto
-  const formatSubmissionToText = (submission: ContactSubmission): string => {
+  export const formatSubmissionToText = (submission: ContactSubmission): string => {
     const date = new Date(submission.timestamp).toLocaleString("pt-BR")
   
     return `
@@ -126,6 +124,7 @@ export interface ContactSubmission {
   STATUS: ${submission.status.toUpperCase()}
   
   === FIM DO REGISTRO ===
+  
     `.trim()
   }
   

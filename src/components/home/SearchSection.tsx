@@ -2,7 +2,6 @@
 
 import { Button } from "../ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { Input } from "../ui/input"
 import { useState } from "react"
 import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -17,7 +16,8 @@ const propertyTypes = [
 
 const transactionTypes = [
   { value: "venda", label: "Venda" },
-  { value: "aluguel", label: "Aluguel" }
+  { value: "aluguel", label: "Aluguel" },
+  { value: "temporada", label: "Temporada" },
 ]
 
 const neighborhoods = [
@@ -30,23 +30,28 @@ const neighborhoods = [
 
 export default function SearchSection() {
   const [searchFilters, setSearchFilters] = useState({
-    propertyType: "",
-    transactionType: "",
-    neighborhood: "",
-    minPrice: "",
-    maxPrice: "",
+    priceRange: "",
     bedrooms: "",
+    location: "",
   })
   const router = useRouter()
 
   const handleSearch = () => {
     const params = new URLSearchParams()
 
-    Object.entries(searchFilters).forEach(([key, value]) => {
-      if (value) {
-        params.append(key, value)
-      }
-    })
+    if (searchFilters.location) {
+      params.append("neighborhood", searchFilters.location)
+    }
+
+    if (searchFilters.bedrooms) {
+      params.append("bedrooms", searchFilters.bedrooms)
+    }
+
+    if (searchFilters.priceRange) {
+      const [min, max] = searchFilters.priceRange.split("-")
+      if (min) params.append("minPrice", min)
+      if (max && max !== "999999999") params.append("maxPrice", max)
+    }
 
     router.push(`/imoveis?${params.toString()}`)
   }
@@ -60,70 +65,28 @@ export default function SearchSection() {
 
         <div className="bg-card rounded-2xl shadow-lg p-8 border border-border">
           {/* Filtros principais */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
-            <Select
-              value={searchFilters.propertyType}
-              onValueChange={(value) => setSearchFilters((prev) => ({ ...prev, propertyType: value }))}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Tipo de imóvel" />
-              </SelectTrigger>
-              <SelectContent>
-                {propertyTypes.map((type) => (
-                  <SelectItem key={type.value} value={type.value}>
-                    {type.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={searchFilters.transactionType}
-              onValueChange={(value) => setSearchFilters((prev) => ({ ...prev, transactionType: value }))}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Venda ou Aluguel" />
-              </SelectTrigger>
-              <SelectContent>
-                {transactionTypes.map((type) => (
-                  <SelectItem key={type.value} value={type.value}>
-                    {type.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select
-              value={searchFilters.neighborhood}
-              onValueChange={(value) => setSearchFilters((prev) => ({ ...prev, neighborhood: value }))}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Bairro" />
-              </SelectTrigger>
-              <SelectContent>
-                {neighborhoods.map((neighborhood) => (
-                  <SelectItem key={neighborhood.value} value={neighborhood.value}>
-                    {neighborhood.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Input
-              placeholder="Preço mínimo"
-              value={searchFilters.minPrice}
-              onChange={(e) => setSearchFilters((prev) => ({ ...prev, minPrice: e.target.value }))}
-            />
-
-            <Input
-              placeholder="Preço máximo"
-              value={searchFilters.maxPrice}
-              onChange={(e) => setSearchFilters((prev) => ({ ...prev, maxPrice: e.target.value }))}
-            />
-          </div>
-
-          {/* Filtros adicionais */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <Select
+              value={searchFilters.location}
+              onValueChange={(value) => setSearchFilters((prev) => ({ ...prev, location: value }))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Localização" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todas as regiões</SelectItem>
+                <SelectItem value="itaim-bibi">Itaim Bibi</SelectItem>
+                <SelectItem value="jardim-paulista">Jardim Paulista</SelectItem>
+                <SelectItem value="jardins">Jardins</SelectItem>
+                <SelectItem value="vila-madalena">Vila Madalena</SelectItem>
+                <SelectItem value="moema">Moema</SelectItem>
+                <SelectItem value="pinheiros">Pinheiros</SelectItem>
+                <SelectItem value="higienopolis">Higienópolis</SelectItem>
+                <SelectItem value="jardim-europa">Jardim Europa</SelectItem>
+                <SelectItem value="vila-olimpia">Vila Olímpia</SelectItem>
+              </SelectContent>
+            </Select>
+
             <Select
               value={searchFilters.bedrooms}
               onValueChange={(value) => setSearchFilters((prev) => ({ ...prev, bedrooms: value }))}
@@ -132,10 +95,29 @@ export default function SearchSection() {
                 <SelectValue placeholder="Quartos" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="any">Qualquer quantidade</SelectItem>
                 <SelectItem value="1">1 quarto</SelectItem>
                 <SelectItem value="2">2 quartos</SelectItem>
                 <SelectItem value="3">3 quartos</SelectItem>
-                <SelectItem value="4">4+ quartos</SelectItem>
+                <SelectItem value="4">4 quartos</SelectItem>
+                <SelectItem value="5">5+ quartos</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={searchFilters.priceRange}
+              onValueChange={(value) => setSearchFilters((prev) => ({ ...prev, priceRange: value }))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Faixa de preço" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="any">Qualquer valor</SelectItem>
+                <SelectItem value="0-500000">Até R$ 500 mil</SelectItem>
+                <SelectItem value="500000-1000000">R$ 500 mil - R$ 1 milhão</SelectItem>
+                <SelectItem value="1000000-3000000">R$ 1 - R$ 3 milhões</SelectItem>
+                <SelectItem value="3000000-10000000">R$ 3 - R$ 10 milhões</SelectItem>
+                <SelectItem value="10000000-999999999">Acima de R$ 10 milhões</SelectItem>
               </SelectContent>
             </Select>
           </div>

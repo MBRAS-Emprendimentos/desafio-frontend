@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contato {
+  id String @id @default(cuid())
+  nome String
+  email String
+  numero String
+  createdAt DateTime @default(now())
+
+}
+
+model Imovel {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  code        String
+  tagline     String
+  location    String
+  summaryDetails String
+  summaryParking String
+  description String
+  whatsappNumber String
+  formId      String
+
+  images      Image[]
+  highlights  Highlight[]
+  characteristics Characteristic[]
+  neighborhoodDifferentials Differential[]
+  walkDistanceStats DistanceStat[]
+
+  createdAt   DateTime @default(now())
+}
+
+model Image {
+  id       String @id @default(cuid())
+  url      String
+  imovel   Imovel @relation(fields: [imovelId], references: [id])
+  imovelId String
+}
+
+model Highlight {
+  id       String @id @default(cuid())
+  text     String
+  imovel   Imovel @relation(fields: [imovelId], references: [id])
+  imovelId String
+}
+
+model Characteristic {
+  id       String @id @default(cuid())
+  label    String
+  value    String
+  imovel   Imovel @relation(fields: [imovelId], references: [id])
+  imovelId String
+}
+
+model Differential {
+  id             String @id @default(cuid())
+  title          String
+  description    String
+  iconColor      String
+  iconBackground String
+  imovel         Imovel @relation(fields: [imovelId], references: [id])
+  imovelId       String
+}
+
+model DistanceStat {
+  id       String @id @default(cuid())
+  value    String
+  label    String
+  imovel   Imovel @relation(fields: [imovelId], references: [id])
+  imovelId String
+}
+

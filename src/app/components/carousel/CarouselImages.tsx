@@ -30,7 +30,7 @@ export function CarouselImages({ images }: { images: string[] }) {
                   sizes="100vw"
                   quality={100}
                   onError={() => setErro(true)}
-                  priority={index === 0}
+                  loading="lazy"
                 />
               </div>
             )

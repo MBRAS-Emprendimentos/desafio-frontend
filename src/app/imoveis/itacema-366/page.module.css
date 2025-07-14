@@ -59,6 +59,8 @@
 
 
 .highlights {
+    padding: 5px;
+    border-radius: 10px;
     animation: fadeInRight linear both;
     animation-timeline: view();
     animation-range: cover 0% cover 40%;
@@ -97,13 +99,11 @@
 
 @keyframes fadeInRight {
     from {
-        opacity: 1;
-        transform: translateX(800px);
+        background-color: aliceblue;
+
     }
     to {
-        opacity: 1;
-        transform: translateX(0);
-
+        background-color: transparent;
     }
 }
 

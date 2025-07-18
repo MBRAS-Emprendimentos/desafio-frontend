@@ -1,5 +1,5 @@
 import {Car, Home, Shield, School, Hospital, Trees, RulerDimensionLine} from 'lucide-react';
-import {PropertyData} from '@/types/special';
+import { PropertyData } from '@/app/models/propertyData';
 
 const propertyImages = [
    'https://img.mbras.com.br/property_photos/MB18004/42273108-a3b4-45df-ba51-05be9c9fcafd.jpeg?tr=f-auto,q-auto,pr=true,w=1200',

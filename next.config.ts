@@ -1,7 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images : {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.mbras.com.br',
+        port: '',
+        pathname: '/**'
+      },
+      {
+         protocol: 'https',
+        hostname: 'img.mbras.com.br',
+        port: '',
+        pathname: '/**'
+      }
+    ]
+  }
 };
 
 export default nextConfig;

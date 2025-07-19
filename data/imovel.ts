@@ -7,7 +7,7 @@ import {
   Trees,
   RulerDimensionLine,
 } from "lucide-react";
-import { PropertyData } from "@/app/models/propertyData";
+import { PropertyData } from "@/models/propertyData";
 
 export const images: {
   mainImage: string;

@@ -35,7 +35,7 @@ export function PropertyCard({
           <div className="flex gap-4"></div>
         </div>
         <Button asChild className="w-full">
-          <Link href={`/properties/${property.code}`}>Mostrar Detalhes</Link>
+          <Link href={`/imovel/${property.code}`}>Mostrar Detalhes</Link>
         </Button>
       </div>
     </div>

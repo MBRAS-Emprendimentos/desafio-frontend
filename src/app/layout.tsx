@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./layout/navBar";
-import { ThemeProvider } from "@/components/ui/theme-provider";
-import Footer from "@/components/ui/footer";
+import Footer from "@/app/layout/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,6 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Landing Page ",
+  icons: "https://www.mbras.com.br/mbras-icon-light.png"
 };
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -44,13 +44,16 @@ export default function NavBar() {
   return (
     <header className="bg-[#000] h-20 flex justify-end items-center  top-0 left-0 w-full z-10 shadow-lg">
       <div className="mr-auto flex gap-5 p-3 max-lg:hidden ">
-        <Image
-          width={100}
-          height={100}
-          alt="Logo MBRAS"
-          src={"https://www.mbras.com.br/mbras-logo-header-light.png"}
-          className="bg-[#fff] p-3 rounded-lg"
-        />
+        <Link href={'/'}>
+     
+          <Image
+            width={100}
+            height={100}
+            alt="Logo MBRAS"
+            src={"https://www.mbras.com.br/mbras-logo-header-light.png"}
+            className="bg-[#fff] p-3 rounded-lg"
+          />
+        </Link>
       </div>
 
       <ul className="flex gap-8 mr-3 max-[400px]:gap-1 max-[450px]:gap-3 max-lg:mx-auto">

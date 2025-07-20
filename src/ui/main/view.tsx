@@ -1,10 +1,10 @@
 "use client";
-import Link from "next/link";
-import "@/styles/fonts.css";
-import { Button } from "@/components/ui/button";
-import { itacema366Data } from "../../../data/imovel";
+
+import { useState } from "react";
 import Image from "next/image";
-import { socialNetwork } from "./viewModel";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -12,23 +12,49 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
+import { PropertyCard } from "@/components/ui/propertyCard";
+import { socialNetwork } from "./viewModel";
+import { propertys } from "../../../data/imovel";
+import { PropertyData } from "@/models/propertyData";
+import {
+  AtSign,
+  LocateFixed,
+  LocateIcon,
+  LocateOff,
+  LocationEdit,
+  LocationEditIcon,
+  LucideLocate,
+  MapPin,
+  Phone,
+  PhoneCall,
+} from "lucide-react";
 
 export default function MainView({ socialNetWork }: socialNetwork) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [propertyType, setPropertyType] = useState("all");
+
+  const filteredProperties = propertys.filter((value) => {
+    const matchesSearch =
+      value.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      value.location.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType =
+      propertyType === "all" || (propertyType === "tosell" && value.toSell);
+    return matchesSearch && matchesType;
+  });
   const handleValueChange = (url: string) => {
     url && window.open(url, "_blank");
   };
 
   return (
     <>
-      <header className="bg-[#0162b1] h-20 flex justify-end items-center fixed top-0 left-0 w-full z-10 shadow-lg">
+      <header className="bg-[#000] h-20 flex justify-end items-center  top-0 left-0 w-full z-10 shadow-lg">
         <div className="mr-auto flex gap-5 p-3 max-lg:hidden ">
           <Image
             width={100}
             height={100}
             alt="Logo MBRAS"
             src={"https://www.mbras.com.br/mbras-logo-header-light.png"}
-            className=""
+            className="bg-[#fff] p-3 rounded-lg"
           />
         </div>
 
@@ -59,40 +85,128 @@ export default function MainView({ socialNetWork }: socialNetwork) {
           </li>
         </ul>
       </header>
-
-      <main className="w-full h-screen relative overflow-hidden flex items-center justify-center ">
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-40"
-          loop
-          autoPlay
-          muted
-        >
-          <source
-            src={
-              "https://img.mbras.com.br/site/hero/vd-hero-hor.mp4?format=mp4&quality=75"
-            }
-            type="video/mp4"
-          />
-        </video>
-        <div className="w-4xl h-2/4 relative ml-10 flex flex-col items-center rounded-3xl text-[#95cade] max-md:mx-auto ">
-          <h1 className="text-5xl montserrat my-3 max-lg:text-3xl max-md:text-xl">
-            Referência em Altíssimo Padrão
-          </h1>
-          <p className="max-lg:text-xl max-lg:w-96 max-md:text-lg max-md:w-60">
-            Há 10 anos criando conexões, a MBRAS oferece acesso às propriedades
-            mais exclusivas do Brasil e do mundo.
-          </p>
-          <div className="bg-[#ffffff51] w-3xl h-36  flex justify-center items-center px-2 rounded-lg mt-20 max-lg:bg-none max-lg:w-80  ">
-            <div className="bg-[#fff] w-[768px] h-32 rounded-lg text-black flex flex-col items-center justify-center">
-              <p className="text-4xl">{itacema366Data.name}</p>
-              <Separator className="bg-[#0162b1] my-3 mx-[12px] " />
-              <Button className="bg-[#0162b1] hover:bg-[#014a8a] text-white">
-                Saiba mais sobre o Imóvel
-              </Button>
+      <div className="min-h-screen">
+        <section className="relative h-[80vh]">
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-40"
+            loop
+            autoPlay
+            muted
+          >
+            <source
+              src={
+                "https://img.mbras.com.br/site/hero/vd-hero-hor.mp4?format=mp4&quality=75"
+              }
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-black/50 flex items-center">
+            <div className="container mx-auto px-4 text-white">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                Referência em Altíssimo Padrão
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 max-w-2xl">
+                Há mais de uma década no mercado, a MBRAS conecta você a
+                propriedades exclusivas no Brasil e ao redor do mundo.
+              </p>
+              <div className="flex gap-3">
+                <Button size="lg">
+                  <Link href="/properties">Criar Conta</Link>
+                </Button>
+                <Button size="lg">
+                  <Link href="/properties">Fazer Login</Link>
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </section>
+
+        <section className="container mx-auto px-4 py-8 -mt-16 relative z-10">
+          <div className="bg-white p-6 rounded-lg shadow-xl grid grid-cols md:grid-cols-3 gap-4 text-[#000]">
+            <Input
+              placeholder="Buscar por localização ou pelo nome da propriedade..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Select value={propertyType} onValueChange={setPropertyType}>
+              <SelectTrigger>
+                <SelectValue placeholder="Property Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todas Propriedades</SelectItem>
+                <SelectItem value="tosell">Para vender</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button>Buscar</Button>
+          </div>
+        </section>
+
+        <section className="container mx-auto px-4 py-16">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold">Imóveis em Destaque</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProperties.map((property: PropertyData) => (
+              <PropertyCard
+                key={property.code}
+                property={property}
+                urlSrc={
+                  property.name === "ITACEMA"
+                    ? property.images[0]
+                    : property.name === "RESIDENCIAL JARDIM PAULISTA"
+                    ? property.images[0]
+                    : property.images[0]
+                }
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-gray-50 py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl text-black font-bold text-center mb-12">
+              Fale Conosco
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Enterprise Number",
+                  value: "55 11 5185 6999",
+                  icon: <PhoneCall />,
+                },
+                {
+                  title: "Enterprise WhatsApp",
+                  value: "+55 11 97799 8888",
+                  icon: <Phone/>,
+                },
+                {
+                  title: "Enterprise Address",
+                  value:
+                    "Av. Magalhães de Castro 4.800 Park Tower – 23° andarCidade Jardim - São Paulo - SP05676-120 Brasil",
+                  icon: <MapPin/>,
+                },
+                {
+                  title: "Enterprise email",
+                  value: "contato@mbras.com.br",
+                  icon: <AtSign />,
+                },
+              ].map((service, index) => (
+                <div
+                  key={index}
+                  className="bg-white p-6 rounded-lg shadow-md text-center"
+                >
+                  <div className="text-4xl mb-4 text-black">{service.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2 text-black">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600">{service.value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

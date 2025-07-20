@@ -5,6 +5,7 @@ export interface PropertyData {
   name: string;
   code: string;
   tagline: string;
+  toSell: boolean
   location: string;
   summary: {
     details: string;

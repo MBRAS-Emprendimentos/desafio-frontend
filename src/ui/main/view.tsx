@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,9 +9,9 @@ import {
 } from "@/components/ui/select";
 import { PropertyCard } from "@/components/ui/propertyCard";
 import { PropertyData } from "@/models/propertyData";
-import MainViewModelProps from "@/models/uiModels/mainModel";
+import MainViewModelProps from "@/ui/main/viewModel";
 import { useRouter } from "next/navigation";
-import { propertys } from "../../../data/imovel";
+import { motion } from "framer-motion";
 
 export default function MainView({
   searchTerm,
@@ -23,10 +22,13 @@ export default function MainView({
 }: MainViewModelProps) {
   const route = useRouter();
 
-
-
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 50 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="min-h-screen">
         <section className="relative h-[80vh]">
           <video
@@ -51,14 +53,6 @@ export default function MainView({
                 Há mais de uma década no mercado, a MBRAS conecta você a
                 propriedades exclusivas no Brasil e ao redor do mundo.
               </p>
-              <div className="flex gap-3">
-                <Button size="lg">
-                  <Link href="/properties">Criar Conta</Link>
-                </Button>
-                <Button size="lg">
-                  <Link href="/properties">Fazer Login</Link>
-                </Button>
-              </div>
             </div>
           </div>
         </section>
@@ -79,7 +73,13 @@ export default function MainView({
                 <SelectItem value="tosell">Para vender</SelectItem>
               </SelectContent>
             </Select>
-            <Button onClick={() => route.push(`/imovel/${filteredProperties.map((code) => code.code)}`)}>
+            <Button
+              onClick={() =>
+                route.push(
+                  `/imovel/${filteredProperties.map((code) => code.code)}`
+                )
+              }
+            >
               Buscar{}
             </Button>
           </div>
@@ -107,6 +107,6 @@ export default function MainView({
           </div>
         </section>
       </div>
-    </>
+    </motion.div>
   );
 }

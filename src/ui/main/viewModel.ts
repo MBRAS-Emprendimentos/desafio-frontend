@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { propertys } from "../../../data/imovel";
+import { propertys } from "../../data/imovel";
 
 export interface socialNetwork {
   socialNetWork: Array<{ value: string; label: string }>;
+}
+import { Dispatch, SetStateAction } from "react";
+import { PropertyData } from "@/models/propertyData";
+
+export default interface MainViewModelProps {
+  searchTerm: string;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
+  propertyType: string;
+  setPropertyType: Dispatch<SetStateAction<string>>;
+  filteredProperties: Array<PropertyData>;
 }
 
 export default function MainViewModel() {

@@ -9,11 +9,14 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function NavBar() {
   const handleValueChange = (url: string) => {
     url && window.open(url, "_blank");
   };
+
+  const route = useRouter()
 
   const socialNetwork = [
     {
@@ -71,13 +74,13 @@ export default function NavBar() {
           </Select>
         </li>
         <li>
-          <Button variant="ghost" className="border">
-            <Link href={"#"}>Galeria de Fotos</Link>
+          <Button onClick={() => route.push('/galery')} variant="ghost" className="border">
+           Galeria de Fotos
           </Button>
         </li>
         <li>
-          <Button variant={"ghost"} className="border">
-            <Link href={"#"}>Contato</Link>
+          <Button onClick={() => route.push('/forms')} variant={"ghost"} className="border">
+           Contato
           </Button>
         </li>
       </ul>

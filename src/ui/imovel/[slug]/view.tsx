@@ -1,14 +1,14 @@
-
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-
 import { CheckIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
 import { ImovelViewModel } from "@/ui/imovel/[slug]/viewModel";
 
-export default async function ImovelPageView(props: { params: Promise<{slug:string}> }) {
+export default async function ImovelPageView(props: {
+  params: Promise<{ slug: string }>;
+}) {
   const params = await props.params;
-  const {property} = ImovelViewModel(params)
+  const { property } = ImovelViewModel(params);
   return (
     <div className="bg-white text-[#000]">
       <section className="relative h-[70vh] bg-gray-100">

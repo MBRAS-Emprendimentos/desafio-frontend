@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { socialNetwork } from "@/ui/main/viewModel";
 import Image from "next/image";
 import Link from "next/link";
 

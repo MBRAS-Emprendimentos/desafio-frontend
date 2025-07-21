@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 
 import { CheckIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
-import { PropertyData } from "@/models/propertyData";
-import { ImovelViewModel } from "./viewModel";
+import { ImovelViewModel } from "@/ui/imovel/[slug]/viewModel";
 
-export default function ImovelPageView({ params }: { params:{slug:string} }) {
-    const {property} = ImovelViewModel(params)
+export default async function ImovelPageView(props: { params: Promise<{slug:string}> }) {
+  const params = await props.params;
+  const {property} = ImovelViewModel(params)
   return (
     <div className="bg-white text-[#000]">
       <section className="relative h-[70vh] bg-gray-100">
@@ -113,7 +113,7 @@ export default function ImovelPageView({ params }: { params:{slug:string} }) {
 
               <Button variant="outline" className="w-full">
                 <PhoneIcon className="mr-2" />
-                Ligar Agora
+                <Link href={`tel:${property.phone}`}>Ligar Agora</Link>
               </Button>
             </div>
 

@@ -5,7 +5,8 @@ export interface PropertyData {
   name: string;
   code: string;
   tagline: string;
-  toSell: boolean
+  toSell: boolean;
+  phone: string;
   location: string;
   summary: {
     details: string;
@@ -32,9 +33,9 @@ export interface PropertyData {
     title: string;
     description: string;
   }>;
-  walkDistanceStats: Array<{value: string, label: string}>
+  walkDistanceStats: Array<{ value: string; label: string }>;
   contact: {
-    whatsappNumber: string,
-    formId : string
-  }
+    whatsappNumber: string;
+    formId: string;
+  };
 }

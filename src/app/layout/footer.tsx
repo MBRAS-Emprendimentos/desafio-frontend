@@ -1,5 +1,4 @@
 import { AtSign, MapPin, Phone, PhoneCall } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -40,7 +39,7 @@ export default function Footer() {
             ].map((service, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-lg shadow-md text-center"
+                className="bg-[#a9a9a9a7] p-6 rounded-lg shadow-md text-center"
               >
                 <div className="text-4xl mb-4 text-black">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2 text-black">
@@ -49,7 +48,7 @@ export default function Footer() {
                 <Link
                   href={
                     service.type === "number"
-                      ? `tel${service.value}`
+                      ? `tel:${service.value}`
                       : service.type === "appNumber"
                       ? `whatsapp://send?phone=${service.value.trim()}`
                       : service.type === "address"
@@ -58,7 +57,7 @@ export default function Footer() {
                       ? `mailto:${service.value}`
                       : ""
                   }
-                  className="text-gray-600"
+                  className="text-[#141414]"
                 >
                   {service.value}
                 </Link>

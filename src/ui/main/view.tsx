@@ -11,6 +11,8 @@ import {
 import { PropertyCard } from "@/components/ui/propertyCard";
 import { PropertyData } from "@/models/propertyData";
 import MainViewModelProps from "@/models/uiModels/mainModel";
+import { useRouter } from "next/navigation";
+import { propertys } from "../../../data/imovel";
 
 export default function MainView({
   searchTerm,
@@ -19,6 +21,10 @@ export default function MainView({
   setPropertyType,
   filteredProperties,
 }: MainViewModelProps) {
+  const route = useRouter();
+
+
+
   return (
     <>
       <div className="min-h-screen">
@@ -73,7 +79,9 @@ export default function MainView({
                 <SelectItem value="tosell">Para vender</SelectItem>
               </SelectContent>
             </Select>
-            <Button>Buscar</Button>
+            <Button onClick={() => route.push(`/imovel/${filteredProperties.map((code) => code.code)}`)}>
+              Buscar{}
+            </Button>
           </div>
         </section>
 

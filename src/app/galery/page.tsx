@@ -1,5 +1,5 @@
-import ImagesGaleryPage from "@/ui/imagesGalery/view";
+import ImagesGalery from "@/ui/imagesGalery";
 
-export default function ImagesGalery() {
-return <ImagesGaleryPage/>
+export default function ImagesGaleryPage() {
+    return <ImagesGalery/>
 }

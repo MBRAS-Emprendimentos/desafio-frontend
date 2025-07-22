@@ -19,11 +19,10 @@ export function PropertyCard({
           fill
           className="object-cover"
         />
-        {property.toSell && (
-          <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-            Destaque
-          </div>
-        )}
+
+        <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+          Destaque
+        </div>
       </div>
       <div className="p-6">
         <h3 className="text-xl font-bold mb-2">{property.name}</h3>
